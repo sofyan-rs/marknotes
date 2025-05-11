@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:marknotes/core/common/widgets/empty_placeholder.dart';
 import 'package:marknotes/core/router/app_router.dart';
 import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
 import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
@@ -48,6 +49,12 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         folder: _selectedFolder,
       );
       context.read<NotesDataCubit>().updateNote(note);
+      AppRouter().navigate(
+        route: '/note-editor',
+        context: context,
+        extra: {'note': note},
+        type: NavType.replace,
+      );
     } else {
       final id = UniqueKey().toString();
       final note = NoteEntity(
@@ -59,11 +66,11 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         folder: _selectedFolder,
       );
       context.read<NotesDataCubit>().addNote(note);
-      Navigator.pop(context);
       AppRouter().navigate(
         route: '/note-editor',
         context: context,
         extra: {'note': note},
+        type: NavType.replace,
       );
     }
     setState(() {
@@ -78,6 +85,13 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       builder: (context) {
         return BlocBuilder<NotesFolderCubit, List<NoteFolderEntity>>(
           builder: (context, state) {
+            if (state.isEmpty) {
+              return EmptyPlaceholder(
+                icon: LucideIcons.folderOpen,
+                message: 'No folders found',
+              );
+            }
+
             return ListView.builder(
               itemCount: state.length,
               itemBuilder: (context, index) {
@@ -171,7 +185,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         ],
       ),
       body:
-          !_editMode && widget.note != null
+          !_editMode
               ? NoteViewerMode(note: widget.note!)
               : NoteEditorMode(
                 formKey: formKey,

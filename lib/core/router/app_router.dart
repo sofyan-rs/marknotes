@@ -4,7 +4,7 @@ import 'package:marknotes/features/notes/presentation/screens/note_editor_screen
 import 'package:marknotes/features/notes/presentation/screens/index_screen.dart';
 import 'package:marknotes/features/notes/presentation/screens/note_folder_screen.dart';
 
-enum NavType { push, go }
+enum NavType { push, go, replace }
 
 class AppRouter {
   void navigate({
@@ -15,6 +15,8 @@ class AppRouter {
   }) {
     if (type == NavType.go) {
       context.go(route, extra: extra);
+    } else if (type == NavType.replace) {
+      context.replace(route, extra: extra);
     } else {
       context.push(route, extra: extra);
     }

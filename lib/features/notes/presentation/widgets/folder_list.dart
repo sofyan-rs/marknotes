@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:marknotes/core/common/widgets/empty_placeholder.dart';
 import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
 import 'package:marknotes/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
 import 'package:marknotes/features/notes/presentation/widgets/folder_item.dart';
@@ -101,22 +102,9 @@ class _FolderListState extends State<FolderList> {
                           .toList();
 
               if (filteredFolders.isEmpty) {
-                return Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 100),
-                      Icon(
-                        LucideIcons.folderOpen,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'No folders available',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
+                return EmptyPlaceholder(
+                  icon: LucideIcons.folderOpen,
+                  message: 'No folders found',
                 );
               }
 

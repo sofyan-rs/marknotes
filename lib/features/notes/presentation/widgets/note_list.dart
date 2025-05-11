@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:marknotes/core/common/widgets/empty_placeholder.dart';
 import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
 import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
 import 'package:marknotes/features/notes/presentation/widgets/note_item.dart';
@@ -60,22 +61,9 @@ class _NoteListState extends State<NoteList> {
 
             if (filteredNote.isEmpty) {
               return SliverToBoxAdapter(
-                child: Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 100),
-                      Icon(
-                        LucideIcons.fileText,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'No notes available',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
+                child: EmptyPlaceholder(
+                  icon: LucideIcons.fileText,
+                  message: 'No notes found',
                 ),
               );
             }
