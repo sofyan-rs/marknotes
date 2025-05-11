@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:markdown_app/core/router/app_router.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_list.dart';
+import 'package:marknotes/core/router/app_router.dart';
+import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:marknotes/features/notes/presentation/widgets/note_list.dart';
 
 class NoteFolderScreen extends StatefulWidget {
   const NoteFolderScreen({super.key, required this.folder});

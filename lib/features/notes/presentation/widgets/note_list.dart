@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_item.dart';
+import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:marknotes/features/notes/presentation/widgets/note_item.dart';
 
 class NoteList extends StatefulWidget {
   const NoteList({super.key, required this.searchController, this.folderId});

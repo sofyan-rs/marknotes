@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:markdown_app/features/notes/presentation/screens/note_editor_screen.dart';
-import 'package:markdown_app/features/notes/presentation/screens/index_screen.dart';
-import 'package:markdown_app/features/notes/presentation/screens/note_folder_screen.dart';
+import 'package:marknotes/features/notes/presentation/screens/note_editor_screen.dart';
+import 'package:marknotes/features/notes/presentation/screens/index_screen.dart';
+import 'package:marknotes/features/notes/presentation/screens/note_folder_screen.dart';
 
 enum NavType { push, go }
 

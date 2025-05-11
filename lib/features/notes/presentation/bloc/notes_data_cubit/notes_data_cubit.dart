@@ -1,5 +1,5 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
+import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
 
 class NotesDataCubit extends HydratedCubit<List<NoteEntity>> {
   NotesDataCubit() : super([]);
@@ -16,6 +16,17 @@ class NotesDataCubit extends HydratedCubit<List<NoteEntity>> {
 
   void deleteNote(String noteId) {
     final updatedNotes = state.where((note) => note.id != noteId).toList();
+    emit(updatedNotes);
+  }
+
+  void deleteFolderInNotes(String folderId) {
+    final updatedNotes =
+        state.map((note) {
+          if (note.folder == folderId) {
+            return note.copyWith(folder: null);
+          }
+          return note;
+        }).toList();
     emit(updatedNotes);
   }
 

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "markdown_app" "\0"
+            VALUE "FileDescription", "marknotes" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "markdown_app" "\0"
+            VALUE "InternalName", "marknotes" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "markdown_app.exe" "\0"
-            VALUE "ProductName", "markdown_app" "\0"
+            VALUE "OriginalFilename", "marknotes.exe" "\0"
+            VALUE "ProductName", "marknotes" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

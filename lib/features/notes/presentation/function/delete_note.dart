@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
 
 void deleteNote({
   required BuildContext context,

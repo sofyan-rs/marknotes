@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:markdown_app/core/themes/app_colors.dart';
+import 'package:marknotes/core/themes/app_colors.dart';
 
 TextTheme getTextTheme() {
   return GoogleFonts.aBeeZeeTextTheme(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:markdown_app/core/common/entities/app_theme_entity.dart';
-import 'package:markdown_app/core/common/enum/tab_enum.dart';
-import 'package:markdown_app/core/router/app_router.dart';
-import 'package:markdown_app/core/common/bloc/app_theme_cubit/app_theme_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/function/show_folder_editor.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/folder_list.dart';
+import 'package:marknotes/core/common/entities/app_theme_entity.dart';
+import 'package:marknotes/core/common/enum/tab_enum.dart';
+import 'package:marknotes/core/router/app_router.dart';
+import 'package:marknotes/core/common/bloc/app_theme_cubit/app_theme_cubit.dart';
+import 'package:marknotes/features/notes/presentation/function/show_folder_editor.dart';
+import 'package:marknotes/features/notes/presentation/widgets/folder_list.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_list.dart';
+import 'package:marknotes/features/notes/presentation/widgets/note_list.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
@@ -89,7 +89,7 @@ class _IndexScreenState extends State<IndexScreen>
           if (_mode == TabState.all) {
             AppRouter().navigate(route: '/note-editor', context: context);
           } else {
-            showFolderEditor(context);
+            showFolderEditor(context: context);
           }
         },
         child: Icon(

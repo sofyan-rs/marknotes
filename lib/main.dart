@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:markdown_app/core/common/entities/app_theme_entity.dart';
-import 'package:markdown_app/core/router/app_router.dart';
-import 'package:markdown_app/core/themes/app_themes.dart';
-import 'package:markdown_app/core/common/bloc/app_theme_cubit/app_theme_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
-import 'package:markdown_app/init_dependencies.dart';
+import 'package:marknotes/core/common/entities/app_theme_entity.dart';
+import 'package:marknotes/core/router/app_router.dart';
+import 'package:marknotes/core/themes/app_themes.dart';
+import 'package:marknotes/core/common/bloc/app_theme_cubit/app_theme_cubit.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
+import 'package:marknotes/init_dependencies.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {

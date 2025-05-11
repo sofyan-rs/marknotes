@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:markdown_app/core/router/app_router.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/function/delete_note.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_editor_mode.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_viewer_mode.dart';
+import 'package:marknotes/core/router/app_router.dart';
+import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
+import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
+import 'package:marknotes/features/notes/presentation/function/delete_note.dart';
+import 'package:marknotes/features/notes/presentation/widgets/note_editor_mode.dart';
+import 'package:marknotes/features/notes/presentation/widgets/note_viewer_mode.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   const NoteEditorScreen({super.key, this.note, this.folderId});
@@ -21,12 +21,15 @@ class NoteEditorScreen extends StatefulWidget {
 }
 
 class _NoteEditorScreenState extends State<NoteEditorScreen> {
+  final formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _noteController = TextEditingController();
   bool _editMode = true;
   String? _selectedFolder;
 
   void _saveNote() {
+    if (formKey.currentState?.validate() == false) return;
+
     final title = _titleController.text.trim();
     final content = _noteController.text.trim();
 
@@ -135,6 +138,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         actions: [
           if (!_editMode)
@@ -170,6 +174,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
           !_editMode && widget.note != null
               ? NoteViewerMode(note: widget.note!)
               : NoteEditorMode(
+                formKey: formKey,
                 titleController: _titleController,
                 noteController: _noteController,
               ),

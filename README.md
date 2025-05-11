@@ -1,4 +1,4 @@
-# markdown_app
+# marknotes
 
 A new Flutter project.
 

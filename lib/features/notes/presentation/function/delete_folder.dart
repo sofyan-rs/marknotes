@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
+import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
 
 void deleteFolder(BuildContext context, NoteFolderEntity folder) {
   showDialog(
@@ -22,6 +23,9 @@ void deleteFolder(BuildContext context, NoteFolderEntity folder) {
                   ),
                   onPressed: () {
                     context.read<NotesFolderCubit>().deleteFolder(folder.id);
+                    context.read<NotesDataCubit>().deleteFolderInNotes(
+                      folder.id,
+                    );
                     Navigator.pop(context);
                   },
                   child: Text("Yes"),

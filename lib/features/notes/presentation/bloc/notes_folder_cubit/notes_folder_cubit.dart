@@ -1,5 +1,5 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
 
 class NotesFolderCubit extends HydratedCubit<List<NoteFolderEntity>> {
   NotesFolderCubit() : super([]);
@@ -16,9 +16,9 @@ class NotesFolderCubit extends HydratedCubit<List<NoteFolderEntity>> {
     emit(updatedFolders);
   }
 
-  void updateFolder(NoteFolderEntity oldFolder, NoteFolderEntity newFolder) {
+  void updateFolder(String folderId, NoteFolderEntity newFolder) {
     final updatedFolders = List<NoteFolderEntity>.from(state);
-    final index = updatedFolders.indexOf(oldFolder);
+    final index = updatedFolders.indexWhere((folder) => folder.id == folderId);
     if (index != -1) {
       updatedFolders[index] = newFolder;
       emit(updatedFolders);

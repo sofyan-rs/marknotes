@@ -6,7 +6,7 @@ class NoteEntity {
   final String content;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final String? folder;
+  String? folder;
 
   NoteEntity({
     required this.id,

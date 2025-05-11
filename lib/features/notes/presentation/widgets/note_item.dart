@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:markdown_app/core/router/app_router.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/presentation/function/delete_note.dart';
+import 'package:marknotes/core/router/app_router.dart';
+import 'package:marknotes/features/notes/domain/entities/note_entity.dart';
+import 'package:marknotes/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:marknotes/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
+import 'package:marknotes/features/notes/presentation/function/delete_note.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.note, this.isInIndex = false});
@@ -63,6 +66,33 @@ class NoteItem extends StatelessWidget {
                     DateFormat('dd MMM yyyy • HH:mm').format(note.updatedAt),
                     style: TextStyle(fontSize: 12),
                   ),
+                  if (note.folder != null) ...[
+                    SizedBox(height: 12),
+                    BlocBuilder<NotesFolderCubit, List<NoteFolderEntity>>(
+                      builder: (context, state) {
+                        final folder = state.firstWhere(
+                          (item) => item.id == note.folder,
+                        );
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: Text(
+                            folder.name,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ],
               ),
             ),
