@@ -7,9 +7,10 @@ import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
 import 'package:markdown_app/features/notes/presentation/function/delete_note.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key, required this.note});
+  const NoteItem({super.key, required this.note, this.isInIndex = false});
 
   final NoteEntity note;
+  final bool isInIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class NoteItem extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                deleteNote(context, note);
+                deleteNote(context: context, note: note, isInIndex: isInIndex);
               },
               backgroundColor: Theme.of(context).colorScheme.error,
               icon: LucideIcons.trash,

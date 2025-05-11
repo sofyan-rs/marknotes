@@ -3,15 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:markdown_app/core/router/app_router.dart';
 import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
+import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
 import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
 import 'package:markdown_app/features/notes/presentation/function/delete_note.dart';
 import 'package:markdown_app/features/notes/presentation/widgets/note_editor_mode.dart';
 import 'package:markdown_app/features/notes/presentation/widgets/note_viewer_mode.dart';
 
 class NoteEditorScreen extends StatefulWidget {
-  const NoteEditorScreen({super.key, this.note});
+  const NoteEditorScreen({super.key, this.note, this.folderId});
 
   final NoteEntity? note;
+  final String? folderId;
 
   @override
   State<NoteEditorScreen> createState() => _NoteEditorScreenState();
@@ -20,8 +23,8 @@ class NoteEditorScreen extends StatefulWidget {
 class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final _titleController = TextEditingController();
   final _noteController = TextEditingController();
-  final _folderNameController = TextEditingController();
   bool _editMode = true;
+  String? _selectedFolder;
 
   void _saveNote() {
     final title = _titleController.text.trim();
@@ -39,7 +42,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         content: content,
         createdAt: widget.note!.createdAt,
         updatedAt: now,
-        folder: widget.note!.folder,
+        folder: _selectedFolder,
       );
       context.read<NotesDataCubit>().updateNote(note);
     } else {
@@ -50,19 +53,62 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
         content: content,
         createdAt: now,
         updatedAt: now,
-        folder: null,
+        folder: _selectedFolder,
       );
       context.read<NotesDataCubit>().addNote(note);
+      Navigator.pop(context);
       AppRouter().navigate(
         route: '/note-editor',
         context: context,
         extra: {'note': note},
-        type: NavType.go,
       );
     }
     setState(() {
       _editMode = false;
     });
+  }
+
+  void _selectFolder() {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      builder: (context) {
+        return BlocBuilder<NotesFolderCubit, List<NoteFolderEntity>>(
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: state.length,
+              itemBuilder: (context, index) {
+                final folder = state[index];
+                return ListTile(
+                  leading: Icon(
+                    LucideIcons.folder,
+                    size: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  title: Text(folder.name),
+                  onTap: () {
+                    setState(() {
+                      if (_selectedFolder == folder.id) {
+                        _selectedFolder = null;
+                      } else {
+                        _selectedFolder = folder.id;
+                      }
+                    });
+                    Navigator.pop(context);
+                  },
+                  trailing: Icon(
+                    _selectedFolder == folder.id
+                        ? LucideIcons.squareCheck
+                        : null,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -71,6 +117,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       _editMode = false;
       _titleController.text = widget.note!.title;
       _noteController.text = widget.note!.content;
+      _selectedFolder = widget.note!.folder;
+    }
+    if (widget.folderId != null) {
+      _selectedFolder = widget.folderId;
     }
     super.initState();
   }
@@ -97,10 +147,10 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
               },
             ),
           if (_editMode) ...[
-            // IconButton(
-            //   icon: const Icon(LucideIcons.folder),
-            //   onPressed: _selectFolder,
-            // ),
+            IconButton(
+              icon: const Icon(LucideIcons.folder),
+              onPressed: _selectFolder,
+            ),
             IconButton(
               icon: const Icon(LucideIcons.save),
               onPressed: _saveNote,
@@ -110,7 +160,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
             IconButton(
               icon: const Icon(LucideIcons.trash, color: Colors.red),
               onPressed: () {
-                deleteNote(context, widget.note!);
+                deleteNote(context: context, note: widget.note!);
               },
             ),
           SizedBox(width: 10),

@@ -1,3 +1,5 @@
+const _unset = Object();
+
 class NoteEntity {
   final String id;
   final String title;
@@ -12,7 +14,7 @@ class NoteEntity {
     required this.content,
     required this.createdAt,
     required this.updatedAt,
-    required this.folder,
+    this.folder,
   });
 
   NoteEntity copyWith({
@@ -21,6 +23,7 @@ class NoteEntity {
     String? content,
     DateTime? createdAt,
     DateTime? updatedAt,
+    Object? folder = _unset,
   }) {
     return NoteEntity(
       id: id ?? this.id,
@@ -28,7 +31,7 @@ class NoteEntity {
       content: content ?? this.content,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      folder: folder,
+      folder: folder == _unset ? this.folder : folder as String?,
     );
   }
 
@@ -39,7 +42,7 @@ class NoteEntity {
       content: json['content'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      folder: json['folder'] as String,
+      folder: json['folder'] as String?,
     );
   }
 

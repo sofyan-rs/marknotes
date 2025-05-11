@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
-import 'package:markdown_app/features/notes/presentation/widgets/note_item.dart';
+import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
+import 'package:markdown_app/features/notes/presentation/widgets/folder_item.dart';
 
 class FolderList extends StatefulWidget {
-  FolderList({super.key});
+  const FolderList({super.key, required this.searchController});
 
-  final searchController = TextEditingController();
+  final TextEditingController searchController;
 
   @override
   State<FolderList> createState() => _FolderListState();
@@ -34,36 +34,34 @@ class _FolderListState extends State<FolderList> {
             ),
           ),
         ),
-        BlocBuilder<NotesDataCubit, List<NoteEntity>>(
+        BlocBuilder<NotesFolderCubit, List<NoteFolderEntity>>(
           builder: (context, state) {
-            List<NoteEntity> filteredNote = [];
+            List<NoteFolderEntity> filteredFolder = [];
             final search = widget.searchController.text.trim();
             if (search.isEmpty) {
-              filteredNote = state;
+              filteredFolder = state;
             } else {
               final query = search.toLowerCase().trim();
-              filteredNote =
+              filteredFolder =
                   state.where((note) {
-                    return note.title.toLowerCase().contains(query) ||
-                        note.content.toLowerCase().contains(query);
+                    return note.name.toLowerCase().contains(query);
                   }).toList();
             }
-            filteredNote.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
-            if (filteredNote.isEmpty) {
+            if (filteredFolder.isEmpty) {
               return SliverToBoxAdapter(
                 child: Center(
                   child: Column(
                     children: [
                       const SizedBox(height: 100),
                       Icon(
-                        LucideIcons.fileText,
+                        LucideIcons.folderOpen,
                         size: 100,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'No notes available',
+                        'No folders available',
                         style: TextStyle(fontSize: 20),
                       ),
                     ],
@@ -74,8 +72,8 @@ class _FolderListState extends State<FolderList> {
 
             return SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) => NoteItem(note: filteredNote[index]),
-                childCount: filteredNote.length, // Example item count
+                (context, index) => FolderItem(folder: filteredFolder[index]),
+                childCount: filteredFolder.length, // Example item count
               ),
             );
           },

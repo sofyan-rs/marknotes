@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:markdown_app/features/notes/presentation/screens/note_editor_screen.dart';
 import 'package:markdown_app/features/notes/presentation/screens/index_screen.dart';
+import 'package:markdown_app/features/notes/presentation/screens/note_folder_screen.dart';
 
 enum NavType { push, go }
 
@@ -33,7 +34,19 @@ class AppRouter {
             builder: (context, state) {
               final extra = state.extra as Map<String, dynamic>?;
               final note = extra?['note'];
-              return NoteEditorScreen(note: note);
+              final folderId = extra?['folderId'];
+
+              return NoteEditorScreen(note: note, folderId: folderId);
+            },
+          ),
+          GoRoute(
+            name: 'note-folder',
+            path: '/note-folder',
+            builder: (context, state) {
+              final extra = state.extra as Map<String, dynamic>?;
+              final folder = extra?['folder'];
+
+              return NoteFolderScreen(folder: folder);
             },
           ),
         ],

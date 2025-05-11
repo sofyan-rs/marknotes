@@ -1,5 +1,5 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/app_theme_entity.dart';
+import 'package:markdown_app/core/common/entities/app_theme_entity.dart';
 
 class AppThemeCubit extends HydratedCubit<AppThemeEntity> {
   AppThemeCubit() : super(AppThemeEntity(isDarkMode: false));

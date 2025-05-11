@@ -7,6 +7,7 @@ import 'package:markdown_app/core/router/app_router.dart';
 import 'package:markdown_app/core/themes/app_themes.dart';
 import 'package:markdown_app/core/common/bloc/app_theme_cubit/app_theme_cubit.dart';
 import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
 import 'package:markdown_app/init_dependencies.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -30,6 +31,7 @@ class MarkNotesApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<AppThemeCubit>()),
+        BlocProvider(create: (context) => sl<NotesFolderCubit>()),
         BlocProvider(create: (context) => sl<NotesDataCubit>()),
       ],
       child: BlocBuilder<AppThemeCubit, AppThemeEntity>(

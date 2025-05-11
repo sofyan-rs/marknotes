@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:markdown_app/features/notes/domain/entities/note_entity.dart';
-import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/notes_data_cubit.dart';
+import 'package:markdown_app/features/notes/domain/entities/note_folder_entity.dart';
+import 'package:markdown_app/features/notes/presentation/bloc/notes_folder_cubit/notes_folder_cubit.dart';
 
-void deleteNote({
-  required BuildContext context,
-  required NoteEntity note,
-  bool? isInIndex,
-}) {
+void deleteFolder(BuildContext context, NoteFolderEntity folder) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
         title: Text("Delete Note"),
-        content: Text("Are you sure want to delete this note?"),
+        content: Text("Are you sure want to delete this folder?"),
         actions: [
           Row(
             children: [
@@ -25,11 +21,8 @@ void deleteNote({
                     ),
                   ),
                   onPressed: () {
-                    context.read<NotesDataCubit>().deleteNote(note.id);
+                    context.read<NotesFolderCubit>().deleteFolder(folder.id);
                     Navigator.pop(context);
-                    if (isInIndex == null) {
-                      Navigator.pop(context);
-                    }
                   },
                   child: Text("Yes"),
                 ),

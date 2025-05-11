@@ -5,7 +5,7 @@ class NotesDataCubit extends HydratedCubit<List<NoteEntity>> {
   NotesDataCubit() : super([]);
 
   void addNote(NoteEntity note) {
-    final updatedNotes = List<NoteEntity>.from(state)..add(note);
+    final updatedNotes = [...state, note];
     emit(updatedNotes);
   }
 
@@ -21,16 +21,21 @@ class NotesDataCubit extends HydratedCubit<List<NoteEntity>> {
 
   @override
   List<NoteEntity>? fromJson(Map<String, dynamic> json) {
-    if (json['notes'] != null) {
-      return (json['notes'] as List)
-          .map((note) => NoteEntity.fromJson(note))
-          .toList();
+    try {
+      final notes =
+          (json['notes'] as List).map((e) => NoteEntity.fromJson(e)).toList();
+      return notes;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 
   @override
   Map<String, dynamic>? toJson(List<NoteEntity> state) {
-    return {'notes': state.map((note) => note.toJson()).toList()};
+    try {
+      return {'notes': state.map((note) => note.toJson()).toList()};
+    } catch (e) {
+      return null;
+    }
   }
 }

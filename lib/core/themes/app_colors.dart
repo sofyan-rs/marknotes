@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Mocha (Dark)
   static const Color darkPrimary = Color(0xFFcba6f7); // Mauve
-  static const Color darkSecondary = Color(0xFFfab387); // Peach
+  // static const Color darkSecondary = Color(0xFFfab387); // Peach
   static const Color darkBackground = Color(0xFF1e1e2e);
   static const Color darkSurface = Color(0xFF313244);
   static const Color darkOnPrimary = Color(0xFF1e1e2e);
@@ -12,7 +12,7 @@ class AppColors {
 
   // Latte (Light)
   static const Color lightPrimary = Color(0xFF8839ef); // Mauve
-  static const Color lightSecondary = Color(0xFFfe640b); // Peach
+  // static const Color lightSecondary = Color(0xFFfe640b); // Peach
   static const Color lightBackground = Color(0xFFeff1f5);
   static const Color lightSurface = Color(0xFFe6e9ef);
   static const Color lightOnPrimary = Color(0xFFffffff);

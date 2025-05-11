@@ -28,8 +28,8 @@ class AppThemes {
     colorScheme: ColorScheme.light(
       primary: AppColors.lightPrimary,
       onPrimary: AppColors.lightOnPrimary,
-      secondary: AppColors.lightSecondary,
-      onSecondary: AppColors.lightOnSecondary,
+      // secondary: AppColors.lightSecondary,
+      // onSecondary: AppColors.lightOnSecondary,
       surface: AppColors.lightSurface,
       onSurface: AppColors.lightOnSurface,
     ),
@@ -50,6 +50,7 @@ class AppThemes {
       ),
     ),
     dialogTheme: DialogThemeData().copyWith(
+      backgroundColor: AppColors.lightBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       titleTextStyle: TextStyle(
         fontSize: 20,
@@ -82,8 +83,8 @@ class AppThemes {
     scaffoldBackgroundColor: AppColors.darkBackground,
     colorScheme: ColorScheme.dark(
       primary: AppColors.darkPrimary,
-      onPrimary: AppColors.darkOnPrimary,
-      secondary: AppColors.darkSecondary,
+      // onPrimary: AppColors.darkOnPrimary,
+      // secondary: AppColors.darkSecondary,
       onSecondary: AppColors.darkOnSecondary,
       surface: AppColors.darkSurface,
       onSurface: AppColors.darkOnSurface,
@@ -105,6 +106,7 @@ class AppThemes {
       ),
     ),
     dialogTheme: DialogThemeData().copyWith(
+      backgroundColor: AppColors.darkBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
       contentTextStyle: TextStyle(fontSize: 16),

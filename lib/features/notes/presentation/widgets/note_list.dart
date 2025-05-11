@@ -6,9 +6,10 @@ import 'package:markdown_app/features/notes/presentation/bloc/notes_data_cubit/n
 import 'package:markdown_app/features/notes/presentation/widgets/note_item.dart';
 
 class NoteList extends StatefulWidget {
-  NoteList({super.key});
+  const NoteList({super.key, required this.searchController, this.folderId});
 
-  final searchController = TextEditingController();
+  final TextEditingController searchController;
+  final String? folderId;
 
   @override
   State<NoteList> createState() => _NoteListState();
@@ -37,6 +38,13 @@ class _NoteListState extends State<NoteList> {
         BlocBuilder<NotesDataCubit, List<NoteEntity>>(
           builder: (context, state) {
             List<NoteEntity> filteredNote = [];
+            if (widget.folderId != null) {
+              state =
+                  state
+                      .where((note) => note.folder == widget.folderId)
+                      .toList();
+            }
+
             final search = widget.searchController.text.trim();
             if (search.isEmpty) {
               filteredNote = state;
@@ -74,7 +82,10 @@ class _NoteListState extends State<NoteList> {
 
             return SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) => NoteItem(note: filteredNote[index]),
+                (context, index) => NoteItem(
+                  note: filteredNote[index],
+                  isInIndex: widget.folderId != null,
+                ),
                 childCount: filteredNote.length, // Example item count
               ),
             );
