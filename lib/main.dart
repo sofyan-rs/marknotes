@@ -37,11 +37,11 @@ class MarkNotesApp extends StatelessWidget {
       child: BlocBuilder<AppThemeCubit, AppThemeEntity>(
         builder: (context, state) {
           return MaterialApp.router(
+            title: 'MarkNotes',
             themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: AppThemes().lightTheme,
             darkTheme: AppThemes().darkTheme,
             debugShowCheckedModeBanner: false,
-            title: 'MarkNotes',
             routerConfig: AppRouter().router,
           );
         },
