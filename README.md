@@ -14,7 +14,7 @@ An Open Source Simple Notes Application with markdown support build with Flutter
 flutter run
 ```
 
-#### Build This Project
+#### Build This Project for Android
 
 ```bash
 flutter build apk --split-per-abi
